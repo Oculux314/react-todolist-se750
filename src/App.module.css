@@ -1,6 +1,17 @@
 .app {
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  justify-content: center;
-  align-items: center;
+}
+
+.header {
+  padding: 1em;
+  background-color: rgb(78, 0, 114);
+  color: white;
+  text-align: center;
+}
+.container {
+  padding: 2em;
+  flex: 1;
+  overflow: auto;
 }
