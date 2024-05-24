@@ -13,13 +13,22 @@ export default function App() {
     setTodos(newTodos);
   }
 
+  function handleDelete(todo) {
+    const newTodos = todos.filter((t) => t._id !== todo._id);
+    setTodos(newTodos);
+  }
+
   return (
     <div className={styles.app}>
       <nav className={styles.header}>
         <h1>My Todo List</h1>
       </nav>
       <main className={styles.container}>
-        <TodoList todos={todos} onToggleComplete={handleToggleComplete} />
+        <TodoList
+          todos={todos}
+          onToggleComplete={handleToggleComplete}
+          onDelete={handleDelete}
+        />
       </main>
     </div>
   );
