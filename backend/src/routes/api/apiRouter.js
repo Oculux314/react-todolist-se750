@@ -12,8 +12,12 @@ apiRouter.get("/test", (req, res) => {
   res.json({ message: "Hello World!" });
 });
 
-apiRouter.get("/todos", async (req, res) => {
-  res.json(await getAllTodos());
+apiRouter.get("/todos", async (req, res, next) => {
+  try {
+    res.json(await getAllTodos());
+  } catch (error) {
+    next(error);
+  }
 });
 
 apiRouter.post("/todos", async (req, res, next) => {
@@ -31,11 +35,7 @@ apiRouter.patch("/todos/:id", async (req, res, next) => {
     const { id } = req.params;
     const { isComplete } = req.body;
     const updatedTodo = await updateTodo(id, isComplete);
-    if (updatedTodo) {
-      res.json(updatedTodo);
-    } else {
-      res.status(404).json({ message: `Todo ${id} not found` });
-    }
+    res.json(updatedTodo);
   } catch (error) {
     next(error);
   }
