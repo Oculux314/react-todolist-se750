@@ -34,7 +34,7 @@ body {
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  
+
   --col-bg: #fff;
   --col-shade: hsl(0, 0%, 90%);
   --col-text: #000;
@@ -44,11 +44,11 @@ body {
   --col-input: hsl(210, 13%, 27%);
   --col-inverse: hsl(210, 12%, 13%);
 
-  --col-info: hsl(215, 100%, 67%);
-  --col-success: hsl(155, 57%, 55%);
-  --col-warning: hsl(46, 90%, 62%);
-  --col-danger: hsl(4, 91%, 69%);
-  --col-discovery: hsl(250, 75%, 75%);
+  --col-info: hsl(215, 100%, 33%);
+  --col-success: hsl(155, 57%, 27%);
+  --col-warning: hsl(46, 90%, 31%);
+  --col-danger: hsl(4, 91%, 35%);
+  --col-discovery: hsl(263, 75%, 37%);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -58,7 +58,7 @@ body {
 } */
 
 * {
-  outline: var(--col-brand) 1px ;
+  outline: var(--col-brand) 1px;
   /* transition: all 0s; */
 }
 
@@ -73,6 +73,26 @@ body {
 a {
   color: var(--col-brand);
   text-decoration: none;
+}
+
+button {
+  --button-color: var(--col-brand);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  background-color: var(--button-color);
+  color: white;
+  border-radius: 1em;
+  padding: 0.6em 1rem;
+
+  &:hover {
+    background-color: color-mix(in srgb, black 15%, var(--button-color));
+  }
+
+  &:active {
+    background-color: color-mix(in srgb, black 30%, var(--button-color));
+  }
 }
 
 /* Pages */

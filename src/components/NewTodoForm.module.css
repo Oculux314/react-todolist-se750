@@ -1,0 +1,31 @@
+.form {
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  border: 3px solid var(--col-brand);
+  padding: 1em 2em 1.2em;
+  border-radius: 1em;
+
+  & > label {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  & > input {
+    font-size: 1.25rem;
+    padding: 0.25em;
+    border: 3px solid transparent;
+    border-bottom-color: var(--col-brand);
+
+    &:focus {
+      border-color: var(--col-brand);
+      border-radius: 0.4em;
+    }
+  }
+}
+
+.addButton {
+  grid-column: 1 / 3;
+}

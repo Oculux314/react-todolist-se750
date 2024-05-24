@@ -6,7 +6,7 @@
 
 .header {
   padding: 1em;
-  background-color: rgb(78, 0, 114);
+  background-color: var(--col-brand);
   color: white;
   text-align: center;
   box-shadow: 0 5px 5px grey;

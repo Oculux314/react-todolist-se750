@@ -12,7 +12,7 @@
   grid-template-columns: subgrid;
   padding-bottom: 1em;
   margin-bottom: 1em;
-  border-bottom: 1px solid rgb(211, 194, 219);
+  border-bottom: 1px solid color-mix(in srgb, white 80%, var(--col-brand));
 
   & h2 {
     font-size: 1.5rem;
@@ -20,27 +20,7 @@
 
   & p {
     font-size: 1.25rem;
-    color: rgb(46, 46, 46);
-  }
-
-  & > button {
-    --button-color: rgb(75, 75, 75);
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border: none;
-    background-color: var(--button-color);
-    color: white;
-    border-radius: 1em;
-    padding: 0.6em;
-
-    &:hover {
-      background-color: color-mix(in srgb, black 15%, var(--button-color));
-    }
-
-    &:active {
-      background-color: color-mix(in srgb, black 30%, var(--button-color));
-    }
+    color: #333;
   }
 
   &:last-child {
@@ -49,13 +29,13 @@
 }
 
 .item .complete {
-  --button-color: rgb(15, 131, 34);
+  --button-color: var(--col-success);
 }
 
 .item .overdue {
-  --button-color: rgb(131, 12, 12);
+  --button-color: var(--col-danger);
 }
 
 .item .pending {
-  --button-color: rgb(185, 155, 19);
+  --button-color: var(--col-warning);
 }
