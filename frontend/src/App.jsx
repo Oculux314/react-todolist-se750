@@ -1,40 +1,70 @@
+import axios from "axios";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./App.module.css";
 import NewTodoForm from "./components/NewTodoForm";
 import SearchBar from "./components/SearchBar";
 import TodoList from "./components/TodoList";
-import initialTodos from "./initialTodos";
 
 export default function App() {
-  const [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  function sortTodos(todos) {
+    return todos.sort((a, b) => dayjs(a.dueDate).diff(dayjs(b.dueDate)));
+  }
+
+  useEffect(() => {
+    axios.get("/api/todos").then((res) => {
+      setTodos(sortTodos(res.data));
+    });
+  }, []);
+
   function handleToggleComplete(todo) {
+    const oldTodos = todos;
     const newTodos = todos.map((t) => {
       return t._id === todo._id ? { ...t, isComplete: !t.isComplete } : t;
     });
     setTodos(newTodos);
+
+    axios
+      .patch(`/api/todos/${todo._id}`, {
+        isComplete: !todo.isComplete,
+      })
+      .catch(() => {
+        setTodos(oldTodos);
+      });
   }
 
   function handleDelete(todo) {
+    const oldTodos = todos;
     const newTodos = todos.filter((t) => t._id !== todo._id);
     setTodos(newTodos);
+
+    axios.delete(`/api/todos/${todo._id}`).catch(() => {
+      setTodos(oldTodos);
+    });
   }
 
   function handleAdd(description, dueDate) {
+    const oldTodos = todos;
     const newTodo = {
       _id: uuidv4(),
       description,
       dueDate,
       isComplete: false,
     };
-    setTodos(
-      [...todos, newTodo].sort((a, b) =>
-        dayjs(a.dueDate).diff(dayjs(b.dueDate))
-      )
-    );
+    setTodos(sortTodos([...todos, newTodo]));
+
+    axios
+      .post("/api/todos", newTodo)
+      .then((res) => {
+        setTodos(sortTodos([...todos, res.data]));
+      })
+      .catch(() => {
+        setTodos(oldTodos);
+      });
   }
 
   const filteredTodos = todos.filter((todo) =>
