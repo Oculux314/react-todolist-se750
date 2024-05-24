@@ -1,17 +1,21 @@
 import dayjs from "dayjs";
 import styles from "./TodoList.module.css";
 
-export default function TodoList({ todos }) {
+export default function TodoList({ todos, onToggleComplete }) {
   return (
     <ul className={styles.list}>
       {todos.map((todo) => (
-        <TodoListItem key={todo._id} todo={todo} />
+        <TodoListItem
+          key={todo._id}
+          todo={todo}
+          onToggleComplete={onToggleComplete}
+        />
       ))}
     </ul>
   );
 }
 
-function TodoListItem({ todo }) {
+function TodoListItem({ todo, onToggleComplete }) {
   const dueDate = dayjs(todo.dueDate);
   const isOverdue = dayjs().isAfter(todo.dueDate);
   const status = todo.isComplete
@@ -19,6 +23,11 @@ function TodoListItem({ todo }) {
     : isOverdue
     ? "Overdue"
     : "Pending";
+  const buttonClass = todo.isComplete
+    ? styles.complete
+    : isOverdue
+    ? styles.overdue
+    : styles.pending;
 
   return (
     <li className={styles.item}>
@@ -28,10 +37,10 @@ function TodoListItem({ todo }) {
           {dueDate.format("dddd Do MMMM, YYYY")} <em>({dueDate.fromNow()})</em>
         </p>
       </div>
-      <div>
-        <button>{status}</button>
-        <button>X</button>
-      </div>
+      <button className={buttonClass} onClick={() => onToggleComplete(todo)}>
+        {status}
+      </button>
+      <button>X</button>
     </li>
   );
 }

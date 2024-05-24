@@ -9,7 +9,10 @@
   background-color: rgb(78, 0, 114);
   color: white;
   text-align: center;
+  box-shadow: 0 5px 5px grey;
+  z-index: 1;
 }
+
 .container {
   padding: 2em;
   flex: 1;
