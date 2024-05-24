@@ -1,4 +1,6 @@
-const initialTodos = [
+import { v4 as uuidv4 } from 'uuid';
+
+let todos = [
   { _id: 1, description: "Learn JS", isComplete: true, dueDate: "2024-05-24" },
   { _id: 2, description: "Learn HTML", isComplete: true, dueDate: "2024-05-25" },
   { _id: 3, description: "Learn CSS", isComplete: true, dueDate: "2024-05-26" },
@@ -16,5 +18,30 @@ const initialTodos = [
 ];
 
 export async function getAllTodos() {
-  return initialTodos;
+  return todos;
+}
+
+export async function createTodo(description, dueDate) {
+  const newTodo = {
+    _id: uuidv4(),
+    description,
+    isComplete: false,
+    dueDate
+  };
+
+  todos.push(newTodo);
+  return newTodo;
+}
+
+export async function updateTodo(id, isComplete) {
+  const todo = todos.find(todo => todo._id === id);
+  if (!todo) {
+    return null;
+  }
+  todo.isComplete = isComplete;
+  return todo;
+}
+
+export async function deleteTodo(id) {
+  todos = todos.filter(todo => todo._id !== id);
 }
