@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createTodo, deleteTodo, getAllTodos, updateTodo } from "../../data/db.js";
+import {
+  createTodo,
+  deleteTodo,
+  getAllTodos,
+  updateTodo,
+} from "../../data/db.js";
 
 const apiRouter = Router();
 
