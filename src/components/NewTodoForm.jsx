@@ -25,7 +25,7 @@ export default function NewTodoForm({ onAdd }) {
 
   return (
     <>
-      <h2>Add todo...</h2>
+      <h2 className={styles.header}>Add todo</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="description">Description</label>
         <input

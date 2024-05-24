@@ -3,11 +3,13 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./App.module.css";
 import NewTodoForm from "./components/NewTodoForm";
+import SearchBar from "./components/SearchBar";
 import TodoList from "./components/TodoList";
 import initialTodos from "./initialTodos";
 
 export default function App() {
   const [todos, setTodos] = useState(initialTodos);
+  const [searchText, setSearchText] = useState("");
 
   function handleToggleComplete(todo) {
     const newTodos = todos.map((t) => {
@@ -35,14 +37,19 @@ export default function App() {
     );
   }
 
+  const filteredTodos = todos.filter((todo) =>
+    todo.description.toLowerCase().includes(searchText)
+  );
+
   return (
     <div className={styles.app}>
       <nav className={styles.header}>
         <h1>My Todo List</h1>
       </nav>
       <main className={styles.container}>
+        <SearchBar onChange={setSearchText} />
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           onToggleComplete={handleToggleComplete}
           onDelete={handleDelete}
         />

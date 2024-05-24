@@ -95,6 +95,18 @@ button {
   }
 }
 
+input {
+  font-size: 1.25rem;
+  padding: 0.25em;
+  border: 3px solid transparent;
+  border-bottom-color: var(--col-brand);
+
+  &:focus {
+    border-color: var(--col-brand);
+    border-radius: 0.4em;
+  }
+}
+
 /* Pages */
 
 .home-page {
