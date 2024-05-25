@@ -22,7 +22,6 @@ export async function updateTodo(id, isComplete) {
   if (typeof isComplete !== "boolean") {
     throw new Error("isComplete must be a boolean");
   }
-  console.log(id, isComplete);
   return await Todo.findByIdAndUpdate(id, { isComplete }, { new: true });
 }
 

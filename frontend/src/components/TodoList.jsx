@@ -1,22 +1,19 @@
 import dayjs from "dayjs";
+import { useTodos } from "../contexts/TodoContext";
 import styles from "./TodoList.module.css";
 
-export default function TodoList({ todos, onToggleComplete, onDelete }) {
+export default function TodoList({ todos }) {
   return (
     <ul className={styles.list}>
       {todos.map((todo) => (
-        <TodoListItem
-          key={todo._id}
-          todo={todo}
-          onToggleComplete={onToggleComplete}
-          onDelete={onDelete}
-        />
+        <TodoListItem key={todo._id} todo={todo} />
       ))}
     </ul>
   );
 }
 
-function TodoListItem({ todo, onToggleComplete, onDelete }) {
+function TodoListItem({ todo }) {
+  const { handleToggleComplete, handleDelete } = useTodos();
   const dueDate = dayjs(todo.dueDate);
   const isOverdue = dayjs().isAfter(todo.dueDate);
   const status = todo.isComplete
@@ -38,10 +35,13 @@ function TodoListItem({ todo, onToggleComplete, onDelete }) {
           {dueDate.format("dddd Do MMMM, YYYY")} <em>({dueDate.fromNow()})</em>
         </p>
       </div>
-      <button className={buttonClass} onClick={() => onToggleComplete(todo)}>
+      <button
+        className={buttonClass}
+        onClick={() => handleToggleComplete(todo)}
+      >
         {status}
       </button>
-      <button onClick={() => onDelete(todo)}>X</button>
+      <button onClick={() => handleDelete(todo)}>X</button>
     </li>
   );
 }

@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useTodos } from "../contexts/TodoContext";
 import styles from "./NewTodoForm.module.css";
 
 const today = dayjs().format("YYYY-MM-DD");
 
-export default function NewTodoForm({ onAdd }) {
+export default function NewTodoForm() {
+  const { handleAdd } = useTodos();
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState(today);
 
@@ -18,7 +20,7 @@ export default function NewTodoForm({ onAdd }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    onAdd(description, dueDate);
+    handleAdd(description, dueDate);
     setDescription("");
     setDueDate(today);
   }
